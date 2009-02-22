@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svn2Svn", "svn2svn\Svn2Svn.csproj", "{3546F66E-1973-47C0-9761-9CACC92F623E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3} = {DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{D5CE4D32-6B5D-4FEA-8992-A5B198154A10}"
+	ProjectSection(SolutionItems) = preProject
+		build.cmd = build.cmd
+		Svn2Svn.proj = Svn2Svn.proj
+		Version.proj = Version.proj
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Version", "Version\Version.csproj", "{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3546F66E-1973-47C0-9761-9CACC92F623E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3546F66E-1973-47C0-9761-9CACC92F623E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3546F66E-1973-47C0-9761-9CACC92F623E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3546F66E-1973-47C0-9761-9CACC92F623E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
