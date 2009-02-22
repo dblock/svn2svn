@@ -50,6 +50,9 @@
   <CreateItem Include="Source\**\%(Configuration.Identity)/*.exe" Exclude="Source\**\%(Configuration.Identity)/*.vshost.exe" >
    <Output TaskParameter="Include" ItemName="BinaryFiles" />
   </CreateItem>
+  <CreateItem Include="Source\**\%(Configuration.Identity)/*.dll">
+   <Output TaskParameter="Include" ItemName="BinaryFiles" />
+  </CreateItem>
   <Copy SourceFiles="@(BinaryFiles)" DestinationFolder="$(ReleaseDir)\$(Major).$(Minor)\Bin\%(Configuration.Identity)" />
   <CreateItem Include="$(ReleaseDir)\**\*" Condition="'%(Configuration.Identity)'=='Release'">
    <Output TaskParameter="Include" ItemName="PackageFiles" />
