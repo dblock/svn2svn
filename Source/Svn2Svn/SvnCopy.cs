@@ -85,32 +85,51 @@ namespace Svn2Svn
                     changeItems.Add(changeItem.Path, changeItem);
                 }
 
+                List<string> filesAdd = new List<string>();
+                List<string> filesDelete = new List<string>();
+
+                // add files in forward order (add directories first)
+                // delete files in reverse order (delete files first)
                 foreach (SvnChangeItem changeItem in changeItems.Values)
                 {
+                    // the root is being modified, ignore, it's already added/removed
+                    if (changeItem.Path.Length <= sourceRelativePath.Length)
+                        continue;
+
                     string targetSvnPath = changeItem.Path.Remove(0, sourceRelativePath.Length);
                     string targetOSPath = targetSvnPath.Replace("/", @"\");
                     string targetPath = Path.Combine(_args.Destination, targetOSPath);
-                    Console.WriteLine("{0} {1}", changeItem.Action, changeItem.Path);
+                    Console.WriteLine(" {0} {1}", changeItem.Action, changeItem.Path);
                     switch (changeItem.Action)
                     {
                         case SvnChangeAction.Add:
-                            {
-                                Console.WriteLine(" A {0}", targetPath);
-                                SvnAddArgs svnAddArgs = new SvnAddArgs();
-                                svnAddArgs.ThrowOnError = true;
-                                svnAddArgs.Depth = SvnDepth.Empty;
-                                _client.Add(targetPath, svnAddArgs);
-                            }
+                        case SvnChangeAction.Replace:
+                            filesAdd.Add(targetPath);
                             break;
                         case SvnChangeAction.Delete:
-                            {
-                                Console.WriteLine(" D {0}", targetPath);
-                                SvnDeleteArgs svnDeleteArgs = new SvnDeleteArgs();
-                                svnDeleteArgs.ThrowOnError = true;
-                                _client.Delete(targetPath, svnDeleteArgs);
-                            }
+                            filesDelete.Insert(0, targetPath);
                             break;
                     }
+                }
+
+                Console.WriteLine("Applying changes @ rev. {0} ...", revision.Revision);
+
+                foreach (string targetPath in filesAdd)
+                {
+                    Console.WriteLine(" A {0}", targetPath);
+                    SvnAddArgs svnAddArgs = new SvnAddArgs();
+                    svnAddArgs.ThrowOnError = true;
+                    svnAddArgs.Depth = SvnDepth.Empty;
+                    _client.Add(targetPath, svnAddArgs);
+                }
+
+                foreach (string targetPath in filesDelete)
+                {
+                    Console.WriteLine(" D {0}", targetPath);
+                    SvnDeleteArgs svnDeleteArgs = new SvnDeleteArgs();
+                    svnDeleteArgs.ThrowOnError = true;
+                    svnDeleteArgs.Force = true;
+                    _client.Delete(targetPath, svnDeleteArgs);
                 }
 
                 SvnCommitArgs commitArgs = new SvnCommitArgs();
@@ -119,7 +138,7 @@ namespace Svn2Svn
                     sourceInfo.Info.Uri, revision.Revision, revision.Author, revision.Time.ToShortDateString(), revision.Time.ToShortTimeString());
                 commitArgs.ThrowOnError = true;
 
-                Console.WriteLine("Commiting {0}", _args.Destination);
+                Console.WriteLine("Committing changes @ rev. {0} in {1}", revision.Revision, _args.Destination);
                 Console.WriteLine("----------------------------------------------------------------------------");
                 Console.WriteLine(commitArgs.LogMessage);
                 Console.WriteLine("----------------------------------------------------------------------------");
@@ -130,7 +149,7 @@ namespace Svn2Svn
                     {
                         Console.Write("Commit? [Y/N] ");
                         char k = Char.ToLower(Console.ReadKey().KeyChar);
-                        Console.WriteLine(); 
+                        Console.WriteLine();
                         if (k == 'y') break;
                         if (k == 'n') throw new Exception("Aborted by user.");
                     }
@@ -138,7 +157,15 @@ namespace Svn2Svn
 
                 SvnCommitResult commitResult = null;
                 _client.Commit(_args.Destination, commitArgs, out commitResult);
-                Console.WriteLine("Commited revision {0}.", commitResult.Revision);
+                if (commitResult != null)
+                {
+                    Console.WriteLine("Commited revision {0}.", commitResult.Revision);
+                }
+                else
+                {
+                    Console.WriteLine("There were no committable changes.");
+                    Console.WriteLine("Subversion property changes are not supported.");
+                }
             }
         }
     }

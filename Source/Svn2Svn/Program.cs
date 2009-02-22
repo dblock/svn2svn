@@ -60,6 +60,9 @@ namespace Svn2Svn
             catch (Exception ex)
             {
                 Console.Error.WriteLine(ex.Message);
+#if DEBUG
+                Console.Error.WriteLine(ex.StackTrace);
+#endif
                 return -1;
             }
         }
