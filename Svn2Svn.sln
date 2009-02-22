@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svn2Svn", "svn2svn\Svn2Svn.csproj", "{3546F66E-1973-47C0-9761-9CACC92F623E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svn2Svn", "Source\Svn2Svn\Svn2Svn.csproj", "{3546F66E-1973-47C0-9761-9CACC92F623E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3} = {DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}
 	EndProjectSection
@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{D5CE4D32
 		Version.proj = Version.proj
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Version", "Version\Version.csproj", "{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Version", "Source\Version\Version.csproj", "{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
