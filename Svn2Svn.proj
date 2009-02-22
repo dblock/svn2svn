@@ -3,7 +3,9 @@
  <Import Project="Version.proj"/>
  <PropertyGroup Condition="'$(Configuration)'==''">
   <Configuration>Debug</Configuration>
-  <ReleaseDir>Vestris.Svn2Svn</ReleaseDir>
+ </PropertyGroup>
+ <PropertyGroup>
+  <ReleaseDir>Svn2Svn</ReleaseDir>
  </PropertyGroup>
  <Target Name="configurations">
   <CreateItem Include="$(Configuration)">
@@ -45,7 +47,7 @@
  </ItemGroup>
  <Target Name="zip" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
   <Copy SourceFiles="@(SourceCodeFiles)" DestinationFolder="$(ReleaseDir)\$(Major).$(Minor)\Source\%(RecursiveDir)" />
-  <CreateItem Include="Svn2Svn\**\%(Configuration.Identity)/*.exe" Exclude="Svn2Svn\**\%(Configuration.Identity)/*.vshost.exe" >
+  <CreateItem Include="Source\**\%(Configuration.Identity)/*.exe" Exclude="Source\**\%(Configuration.Identity)/*.vshost.exe" >
    <Output TaskParameter="Include" ItemName="BinaryFiles" />
   </CreateItem>
   <Copy SourceFiles="@(BinaryFiles)" DestinationFolder="$(ReleaseDir)\$(Major).$(Minor)\Bin\%(Configuration.Identity)" />
