@@ -22,7 +22,7 @@
     <CreateItem Include="UserName" AdditionalMetadata="ReplacementValue=$(UserName)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
     <CreateItem Include="ComputerName" AdditionalMetadata="ReplacementValue=$(ComputerName)"><Output TaskParameter="Include" ItemName="AssemblyInfoTokens"/></CreateItem>
     <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)"/>
-    <AssemblyInfo CodeLanguage="CS" OutputFile="Version\GlobalAssemblyInfo.cs"
+    <AssemblyInfo CodeLanguage="CS" OutputFile="Source\Version\GlobalAssemblyInfo.cs"
        AssemblyCompany="$(CompanyName)" AssemblyProduct="$(ProductName)"
        AssemblyCopyright="$(Copyright)" AssemblyTrademark="$(Trademark)"
        CLSCompliant="false" AssemblyDelaySign="false" AssemblyKeyName="" AssemblyCulture=""

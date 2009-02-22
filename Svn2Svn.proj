@@ -30,7 +30,7 @@
   <Message Importance="high" Text="Cleaning project, %(Configuration.Identity) ..." />
   <MSBuild Projects="Svn2Svn.sln" Targets="Clean" Properties="Configuration=%(Configuration.Identity)" />
   <RemoveDir Directories="$(ReleaseDir)" />
-  <Delete Files="Version\GlobalAssemblyInfo.cs" />
+  <Delete Files="Source\Version\GlobalAssemblyInfo.cs" />
   <Delete Files="Svn2Svn.$(Major).$(Minor).zip" />
  </Target>
  <Target Name="build" DependsOnTargets="version;configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
