@@ -8,18 +8,10 @@ if "%~1"=="" (
 pushd "%~dp0"
 setlocal ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 
-set VisualStudioCmd=%ProgramFiles%\Microsoft Visual Studio 8.0\VC\vcvarsall.bat
+set VisualStudioCmd=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat
 
 if EXIST "%VisualStudioCmd%" ( 
  call "%VisualStudioCmd%"
-)
-
-set SvnDir=%ProgramFiles%\svn
-if NOT EXIST "%SvnDir%" set SvnDir=%ProgramFiles%\Subversion
-if NOT EXIST "%SvnDir%" set SvnDir=%ProgramFiles%\SlikSvn
-if NOT EXIST "%SvnDir%" (
- echo Missing SubVersion, expected in %ProgramFiles%\svn or %ProgramFiles%\Subversion or %ProgramFiles%\SlikSvn
- exit /b -1
 )
 
 set FrameworkVersion=v3.5
