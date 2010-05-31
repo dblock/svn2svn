@@ -5,7 +5,7 @@
   <Configuration>Debug</Configuration>
  </PropertyGroup>
  <PropertyGroup>
-  <ReleaseDir>Svn2Svn</ReleaseDir>
+  <ReleaseDir>Target</ReleaseDir>
  </PropertyGroup>
  <Target Name="configurations">
   <CreateItem Include="$(Configuration)">
@@ -18,7 +18,7 @@
   <Copyright>Copyright (c) Vestris Inc.</Copyright>
   <Trademark>All Rights Reserved</Trademark>
   <MajorVersion>1</MajorVersion>
-  <MinorVersion>1</MinorVersion>
+  <MinorVersion>2</MinorVersion>
  </PropertyGroup>
  <Target Name="all" DependsOnTargets="configurations" Inputs="@(Configuration)" Outputs="target\%(Configuration.FileName)">
   <CallTarget Targets="clean" />
@@ -53,10 +53,12 @@
   <CreateItem Include="Source\**\%(Configuration.Identity)/*.dll">
    <Output TaskParameter="Include" ItemName="BinaryFiles" />
   </CreateItem>
-  <Copy SourceFiles="@(BinaryFiles)" DestinationFolder="$(ReleaseDir)\$(Major).$(Minor)\Bin\%(Configuration.Identity)" />
+  <TemplateFile Template="Documentation\WhatsNew.html" OutputFilename="..\$(ReleaseDir)\$(Major).$(Minor)\WhatsNew.html" Tokens="@(AssemblyInfoTokens)" />
+  <Copy SourceFiles="@(BinaryFiles)" DestinationFolder="$(ReleaseDir)\$(Major).$(Minor)\Bin" Condition="'%(Configuration.Identity)'=='Release'" />
+  <Copy SourceFiles="Documentation\License.txt" DestinationFiles="$(ReleaseDir)\$(Major).$(Minor)\License.txt" />
   <CreateItem Include="$(ReleaseDir)\**\*" Condition="'%(Configuration.Identity)'=='Release'">
    <Output TaskParameter="Include" ItemName="PackageFiles" />
   </CreateItem>
-  <Zip ZipFileName="Svn2Svn.$(Major).$(Minor).zip" Condition="'%(Configuration.Identity)'=='Release'" Files="@(PackageFiles)" />
+  <Zip ZipFileName="$(ReleaseDir)\Svn2Svn.$(Major).$(Minor).zip" Condition="'%(Configuration.Identity)'=='Release'" Files="@(PackageFiles)" WorkingDirectory="$(ReleaseDir)" />
  </Target>
 </Project>
