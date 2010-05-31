@@ -11,7 +11,7 @@ namespace Svn2Svn
         private Svn2SvnCommandLineArguments _args = null;
         private SvnClient _client = new SvnClient();
         private SortedList<long, SvnLogEventArgs> _revisions = new SortedList<long, SvnLogEventArgs>();
-
+        
         public SvnCopy(Svn2SvnCommandLineArguments args)
         {
             _args = args;
@@ -24,8 +24,18 @@ namespace Svn2Svn
             Console.Write(".");
         }
 
+        
+
         public void Copy()
         {
+            long lastSyncRevision = 0;
+            if (_args.incremental)
+            {
+                SvnLogParser logParser = new SvnLogParser(_args.Destination);
+                lastSyncRevision = logParser.GetLastSyncedRevisionFromDestination();
+                Console.WriteLine("Last revision synched: {0}", lastSyncRevision);
+            }
+
             Console.Write("Collecting svn log: ");
 
             if (_args.RevisionRange != null)
@@ -34,7 +44,7 @@ namespace Svn2Svn
                     _args.RevisionRange.StartRevision,
                     _args.RevisionRange.EndRevision);
             }
-
+                                   
             // fetch the source svn respository and 
             SvnInfo sourceInfo = new SvnInfo(_args.Source);
             Console.WriteLine("Source SVN root: {0}", sourceInfo.Info.RepositoryRoot);
@@ -49,6 +59,7 @@ namespace Svn2Svn
             logArgs.StrictNodeHistory = true;
             logArgs.ThrowOnError = true;
             logArgs.Range = _args.RevisionRange;
+
             logArgs.RetrieveChangedPaths = true;
 
             _client.Log(_args.Source, logArgs, new EventHandler<SvnLogEventArgs>(OnLog));
@@ -59,6 +70,13 @@ namespace Svn2Svn
             foreach (KeyValuePair<long, SvnLogEventArgs> revisionPair in _revisions)
             {
                 SvnLogEventArgs revision = revisionPair.Value;
+
+                if (_args.incremental && lastSyncRevision != 0 && lastSyncRevision >= revision.Revision )
+                {
+                    Console.WriteLine("Skipping revision {0} ({1})", revision.Revision, revision.Time);
+                    continue;
+                }
+
                 Console.WriteLine("Revision {0} ({1})", revision.Revision, revision.Time);
 
                 if (_args.simulationOnly)
@@ -111,7 +129,7 @@ namespace Svn2Svn
                             break;
                     }
                 }
-
+               
                 Console.WriteLine("Applying changes @ rev. {0} ...", revision.Revision);
 
                 foreach (string targetPath in filesAdd)
@@ -131,6 +149,7 @@ namespace Svn2Svn
                     svnDeleteArgs.Force = true;
                     _client.Delete(targetPath, svnDeleteArgs);
                 }
+               
 
                 SvnCommitArgs commitArgs = new SvnCommitArgs();
                 commitArgs.LogMessage = revision.LogMessage;

@@ -20,6 +20,8 @@ namespace Svn2Svn
         public string revision;
         [Argument(ArgumentType.AtMostOnce, DefaultValue = false, ShortName = "p", LongName = "prompt", HelpText = "Describe the change and prompt before commiting.")]
         public bool prompt = false;
+        [Argument(ArgumentType.AtMostOnce, DefaultValue = false, ShortName = "i", LongName = "incremental", HelpText = "Starts the replay action from last synced revision.")]
+        public bool incremental = false;
 
         public SvnRevisionRange RevisionRange
         {

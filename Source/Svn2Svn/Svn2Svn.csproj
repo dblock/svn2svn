@@ -47,8 +47,10 @@
     <Compile Include="CommandLineArguments.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Svn2SvnLogArgs.cs" />
     <Compile Include="SvnCopy.cs" />
     <Compile Include="SvnInfo.cs" />
+    <Compile Include="SvnLogParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
