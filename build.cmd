@@ -8,7 +8,7 @@ if "%~1"=="" (
 pushd "%~dp0"
 setlocal ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 
-set VisualStudioCmd=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat
+set VisualStudioCmd=%ProgramFiles%\Microsoft Visual Studio 10.0\VC\vcvarsall.bat
 
 if EXIST "%VisualStudioCmd%" ( 
  call "%VisualStudioCmd%"

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="22B7E5BC-9656-4D34-8F19-E62008690626" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <summary>
+      <para>
+        <newTerm>Svn2Svn</newTerm> is a tool that replays and applies changes across SVN repositories. It's intended to be a lighter version
+        of <command>svnsync</command> or one that doesn't require to start at revision zero or copying entire repositories from root.
+      </para>
+    </summary>
+    <section address="features">
+      <title>Features</title>
+      <content>
+        <para>
+          Svn2Svn is capable of doing an svn 2 svn copy with the following set of options.
+          <list class="bullet">
+            <listItem>supports copying across repositories</listItem>
+            <listItem>no zero-revision requirements, this is a change replay tool</listItem>
+            <listItem>supports non-rooted paths (copy a subtree towards another subtree)</listItem>
+            <listItem>supports add/delete/modify</listItem>
+            <listItem>incremental sync</listItem>
+            <listItem>optional revision range</listItem>
+            <listItem>simulation mode</listItem>
+            <listItem>prompts on commit</listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+    <relatedTopics>
+      <link topicType_id="1FE70836-AA7D-4515-B54B-E10C4B516E50" xlink:href="02C041E1-B9C6-470A-B2E9-B306899679E2" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

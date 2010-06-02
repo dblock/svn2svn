@@ -1,11 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svn2Svn", "Source\Svn2Svn\Svn2Svn.csproj", "{3546F66E-1973-47C0-9761-9CACC92F623E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3} = {DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}
-	EndProjectSection
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{D5CE4D32-6B5D-4FEA-8992-A5B198154A10}"
 	ProjectSection(SolutionItems) = preProject
 		build.cmd = build.cmd
@@ -13,12 +8,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{D5CE4D32
 		Version.proj = Version.proj
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Version", "Source\Version\Version.csproj", "{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{6CC44141-5E9B-497F-B837-B9DE9E8E99EE}"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\License.txt = Documentation\License.txt
+		Documentation\Svn2svn.content = Documentation\Svn2svn.content
+		Documentation\Svn2svn.shfbproj = Documentation\Svn2svn.shfbproj
 		Documentation\WhatsNew.html = Documentation\WhatsNew.html
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svn2Svn", "Source\Svn2Svn\Svn2Svn.csproj", "{3546F66E-1973-47C0-9761-9CACC92F623E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3} = {DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Version", "Source\Version\Version.csproj", "{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{4B1C0518-2D9D-4AF9-AC00-4DAC2CFB9E57}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Content\DevContribute.aml = Documentation\Content\DevContribute.aml
+		Documentation\Content\License.aml = Documentation\Content\License.aml
+		Documentation\Content\Main.aml = Documentation\Content\Main.aml
+		Documentation\Content\Using.aml = Documentation\Content\Using.aml
 	EndProjectSection
 EndProject
 Global
@@ -38,5 +48,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4B1C0518-2D9D-4AF9-AC00-4DAC2CFB9E57} = {6CC44141-5E9B-497F-B837-B9DE9E8E99EE}
 	EndGlobalSection
 EndGlobal

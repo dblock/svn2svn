@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="266F1A5E-C13B-48E2-8194-3B4D9D8088F1" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        You're encouraged to contribute to Svn2Svn. The latest information about this project and source code
+        can be found at <externalLink>
+          <linkUri>http://svn2svn.codeplex.com</linkUri>
+          <linkText>http://svn2svn.codeplex.com</linkText>
+        </externalLink>.
+      </para>
+    </introduction>
+    <section address="SourceCode">
+      <title>Source Code</title>
+      <content>
+        <para>
+          Source code is located in
+          <externalLink>
+            <linkUri>https://svn2svn.svn.codeplex.com/svn/trunk</linkUri>
+            <linkText>
+              https://svn2svn.svn.codeplex.com/svn/trunk
+            </linkText>
+          </externalLink>.
+          Double-click the Visual Studio solution file, <localUri>Svn2Svn.sln</localUri> and Visual Studio will open. 
+        </para>
+      </content>
+    </section>
+    <section address="Building">
+      <title>Building the Project</title>
+      <content>
+        <para>
+          You can build all C# code in Visual Studio. To build the entire project, including this documentation use MSBuild from 
+          command line and type <literal>build all</literal>. This builds both Debug and Release .NET binaries as well as a final 
+          .zip package with all artifacts.
+          <code language="cmd">
+            <![CDATA[c:\source\svn2svn\trunk> build all]]>
+          </code>
+          Output is placed in the <literal>target\Debug|Release</literal> directories.
+        </para>
+      </content>
+    </section>
+    <section address="Patches">
+      <title>Patches and Code Reviews</title>
+      <content>
+        <para>
+          All changes must be code reviewed. Submit patches under issues at
+          <externalLink>
+            <linkUri>http://svn2svn.codeplex.com/WorkItem/List.aspx</linkUri>
+            <linkText>http://svn2svn.codeplex.com/WorkItem/List.aspx</linkText>
+          </externalLink>.
+        </para>
+      </content>
+    </section>
+    <section address="Documentation">
+      <title>Writing Documentation</title>
+      <content>
+        <para>
+          Documentation is written in MAML, using SandCastle Documentation Framework. You cannot build documentation from within
+          Visual Studio, but you can build the documentation by typing <literal>build doc</literal>.
+          <list class="bullet">
+            <listItem>
+              <externalLink>
+                <linkUri>http://www.codeplex.com/SHFB</linkUri>
+                <linkText>SandCastle Help File Builder</linkText>
+              </externalLink>
+              provides an extensive
+              <externalLink>
+                <linkUri>http://www.ewoodruff.us/shfbdocs/Index.aspx?topic=html/b772e00e-1705-4062-adb6-774826ce6700.htm</linkUri>
+                <linkText>Getting Started</linkText>
+              </externalLink>
+              guide.
+            </listItem>
+            <listItem>
+              <externalLink>
+                <linkUri>file:////nycapt35k.com/public/applications/Microsoft/Sandcastle/SandcastleMAMLGuide.chm</linkUri>
+                <linkText>SandClastle MAML Guide</linkText>
+              </externalLink>
+              is an excellent quick reference for MAML.
+            </listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+    <section address="DevEnvironment">
+      <title>Setting Up a Development Environment</title>
+      <content>
+        <para>
+          A development environment for Auth developers requires the following software.
+          <list class="bullet">
+            <listItem>Microsoft Visual Studio 2010</listItem>
+            <listItem>Command-line Subversion Client (not TortoiseSVN Shell Extension)</listItem>
+            <listItem>
+              <externalLink>
+                <linkUri>http://dl.dropbox.com/u/4321494/MSBuild%20Community%20Tasks/MSBuild.Community.Tasks.1.3.0.msi</linkUri>
+                <linkText>MSBuild Community Tasks 1.3.0</linkText>
+              </externalLink>
+            </listItem>
+            <listItem>
+              <externalLink>
+                <linkUri>http://www.codeplex.com/Sandcastle</linkUri>
+                <linkText>SandCastle 2.4 (May 2008)</linkText>
+              </externalLink>
+              + SandCastle Styles Project 2.4 patch
+            </listItem>
+            <listItem>
+              <externalLink>
+                <linkUri>http://www.codeplex.com/SHFB</linkUri>
+                <linkText>Sandcastle Help File Builder 1.8 (Alpha)</linkText>
+              </externalLink>
+            </listItem>
+          </list>
+        </para>
+      </content>
+    </section>
+  </developerConceptualDocument>
+</topic>

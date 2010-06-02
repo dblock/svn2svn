@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="02C041E1-B9C6-470A-B2E9-B306899679E2" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <section address="cmdline">
+      <title>Command Line Usage</title>
+      <content>
+        <para>
+          <code lang="cmd">
+<![CDATA[
+Svn2Svn: 1.2.8932.0
+/simulationOnly[+|-]   Simulation mode, don't commit anything. Default value:'-' (short form /x)
+/source:<string>       Source SVN path. (short form /s)
+/destination:<string>  Target SVN path, default to current. (short form /d)
+/revision:<string>     Copy from revision. (short form /r)
+/prompt[+|-]           Describe the change and prompt before commiting. Default value:'-' (short form /p)
+/incremental[+|-]      Starts the replay action from last synced revision. Default value:'-' (short form /i)
+@<file>                Read response file for more options]]>
+          </code>
+        </para>
+      </content>
+    </section>
+    <section address="example">
+      <title>Sample Run</title>
+      <content>
+        <para>
+          The following example migrates an existing project to CodePlex, revisions 2 through 135.
+          <code lang="cmd">
+            <![CDATA[
+C:\>Svn2Svn.exe /source:c:\source\dni\trunk /destination:c:\Users\dblock\Source\CodePlex\Dni\trunk -r:2:136 -prompt
+Svn2Svn: 1.0.12089.0
+From: c:\source\dni\trunk
+To: c:\Users\dblock\Source\CodePlex\Dni\trunk
+Collecting svn log: 2:136 Source SVN root: https://dotnetinstaller.svn.sourceforge.net/svnroot/dotnetinstaller/
+Source SVN uri: https://dotnetinstaller.svn.sourceforge.net/svnroot/dotnetinstaller/trunk/
+Relative path: /trunk/
+.........................................................................................................
+Collected 105 revisions.
+Revision 2 (11/27/2006 6:42:51 PM)
+Add /trunk/Documents
+ A c:\Users\dblock\Source\CodePlex\Dni\trunk\Documents
+Add /trunk/Documents/dotNetInstaller.html
+ A c:\Users\dblock\Source\CodePlex\Dni\trunk\Documents\dotNetInstaller.html
+Add /trunk/dotNetInstaller/HyperlinkStatic.cpp
+ A c:\Users\dblock\Source\CodePlex\Dni\trunk\dotNetInstaller\HyperlinkStatic.cpp
+Add /trunk/dotNetInstaller/HyperlinkStatic.h
+ A c:\Users\dblock\Source\CodePlex\Dni\trunk\dotNetInstaller\HyperlinkStatic.h
+...
+Add /trunk/InstallerEditor/WebConfiguration.cs
+ A c:\Users\dblock\Source\CodePlex\Dni\trunk\InstallerEditor\WebConfiguration.cs
+Commiting c:\Users\dblock\Source\CodePlex\Dni\trunk
+----------------------------------------------------------------------------
+Previous version before SourceForge
+Copied from https://dotnetinstaller.svn.sourceforge.net/svnroot/dotnetinstaller/trunk/, rev. 2 by davideicardi @ 11/27/2
+006 6:42 PM
+----------------------------------------------------------------------------
+Commit? [Y/N] y
+Revision 3 (11/27/2006 6:59:20 PM)
+
+... skipping several unexciting commits ...
+
+Modify /trunk/Documents/dotNetInstaller.html
+Modify /trunk/Documents/ElementsHelp.xml
+Modify /trunk/Documents/GenerateHelp.xslt
+Modify /trunk/dotNetInstaller/ConfigFile.cpp
+Modify /trunk/dotNetInstaller/dotNetInstaller.rc
+Modify /trunk/dotNetInstaller/installerTypes.h
+Modify /trunk/InstallerEditor/AssemblyInfo.cs
+Modify /trunk/InstallerEditor/installedcheck.cs
+Modify /trunk/InstallerEditor/installedcheck_registry.cs
+Modify /trunk/InstallerEditor/InstallerEditor.csproj
+Modify /trunk/InstallerEditor/SetupConfiguration.cs
+Modify /trunk/InstallerEditor/Template.cs
+Modify /trunk/InstallerEditor/templates/english_template.xml
+Modify /trunk/InstallerEditor/templates/french_template.xml
+Modify /trunk/InstallerEditor/templates/german_template.xml
+Modify /trunk/InstallerEditor/templates/italian_template.xml
+Commiting c:\Users\dblock\Source\CodePlex\Dni\trunk
+----------------------------------------------------------------------------
+Updated german template; Added feature request 1604107 (Registry search); Updated documentation to new XML schema; corre
+cted bug in HTML version in GenerateHelp.xslt; Added OS filter not match texts to german and english templates; TODO: ad
+d this texts to french and italian templates;
+Copied from https://dotnetinstaller.svn.sourceforge.net/svnroot/dotnetinstaller/trunk/, rev. 12 by jentschi @ 2/6/2007 1
+0:19 PM
+----------------------------------------------------------------------------
+Commit? [Y/N] y
+Revision 13 (2/6/2007 11:01:46 PM)
+Modify /trunk/Documents/dotNetInstaller.html
+Modify /trunk/Documents/ElementsHelp.xml
+Modify /trunk/dotNetInstaller/installerTypes.h
+Modify /trunk/InstallerEditor/installedcheck.cs
+Modify /trunk/InstallerEditor/installedcheck_registry.cs
+Commiting c:\Users\dblock\Source\CodePlex\Dni\trunk
+----------------------------------------------------------------------------
+feature request 1604094 (REG_MULTI_SZ and Contains check) implemented
+Copied from https://dotnetinstaller.svn.sourceforge.net/svnroot/dotnetinstaller/trunk/, rev. 13 by jentschi @ 2/6/2007 1
+1:01 PM
+----------------------------------------------------------------------------
+Commit? [Y/N]
+          ]]>
+          </code>
+        </para>
+      </content>
+    </section>
+  </developerConceptualDocument>
+</topic>
