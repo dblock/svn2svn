@@ -22,9 +22,7 @@ namespace Svn2Svn
             _revisions.Add(args.Revision, args);
             args.Detach();
             Console.Write(".");
-        }
-
-        
+        }        
 
         public void Copy()
         {

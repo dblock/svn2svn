@@ -61,7 +61,7 @@
     <CreateItem Include="Source\**\%(Configuration.Identity)/*.dll">
       <Output TaskParameter="Include" ItemName="BinaryFiles" />
     </CreateItem>
-    <Copy SourceFiles="Documentation\%(Configuration.Identity)\Svn2Svn.chm" DestinationFolder="$(ReleaseDir)" />
+    <Copy SourceFiles="Documentation\%(Configuration.Identity)\Svn2Svn.chm" DestinationFolder="$(ReleaseDir)\$(Major).$(Minor)" />
     <TemplateFile Template="Documentation\WhatsNew.html" OutputFilename="..\$(ReleaseDir)\$(Major).$(Minor)\WhatsNew.html" Tokens="@(AssemblyInfoTokens)" />
     <Copy SourceFiles="@(BinaryFiles)" DestinationFolder="$(ReleaseDir)\$(Major).$(Minor)\Bin" Condition="'%(Configuration.Identity)'=='Release'" />
     <Copy SourceFiles="Documentation\License.txt" DestinationFiles="$(ReleaseDir)\$(Major).$(Minor)\License.txt" />

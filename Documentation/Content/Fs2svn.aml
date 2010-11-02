@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="A1EBCAB6-9A72-404E-B8F9-5E535FC7B086" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <summary>
+      <para>
+        <newTerm>Fs2Svn</newTerm> is a tool that syncrhonizes a file system folder to an SVN working copy. It will copy modified, add new
+        and delete files that don't exist in the local copy. The tool does not commit your changes.
+      </para>
+    </summary>
+    <section address="cmdline">
+      <title>Command Line Usage</title>
+      <content>
+        <para>
+          <code lang="cmd">
+<![CDATA[
+Fs2Svn:
+/simulationOnly[+|-]   Simulation mode, don't commit anything. Default value:'-' (short form /x)
+/source:<string>       Source SVN path. (short form /s)
+/destination:<string>  Target SVN path, default to current. (short form /d)
+@<file>                Read response file for more options]]>
+</code>
+        </para>
+      </content>
+    </section>
+    <section address="example">
+      <title>Sample Run</title>
+      <content>
+        <para>
+          The following example merges a new set of files (Tomcat 7) on top of an existing SVN working copy (Tomcat 6)
+          <code lang="cmd">
+            <![CDATA[
+C:\>Fs2Svn.exe /source:c:\temp\apache-tomcat-7.0.4 /destination:c:\source\project\thirdparty\tomcat
+Fs2Svn: 1.2.6232.0
+From: c:\temp\apache-tomcat-7.0.4
+To: c:\source\project\thirdparty\tomcat
+ A C:\Users\dblock\Source\CodePlex\waffle\trunk\Source\ThirdParty\tomcat\webapps\examples\jsp\async (dir)
+ A C:\Users\dblock\Source\CodePlex\waffle\trunk\Source\ThirdParty\tomcat\webapps\examples\WEB-INF\classes\async (dir)
+ D C:\Users\dblock\Source\CodePlex\waffle\trunk\Source\ThirdParty\tomcat\webapps\docs (dir)
+ M C:\Users\dblock\Source\CodePlex\waffle\trunk\Source\ThirdParty\tomcat\LICENSE
+ M C:\Users\dblock\Source\CodePlex\waffle\trunk\Source\ThirdParty\tomcat\NOTICE
+ M C:\Users\dblock\Source\CodePlex\waffle\trunk\Source\ThirdParty\tomcat\RELEASE-NOTES
+ M C:\Users\dblock\Source\CodePlex\waffle\trunk\Source\ThirdParty\tomcat\RUNNING.txt
+ M C:\Users\dblock\Source\CodePlex\waffle\trunk\Source\ThirdParty\tomcat\bin\bootstrap.jar
+ ...]]>
+          </code>
+        </para>
+      </content>
+    </section>
+  </developerConceptualDocument>
+</topic>

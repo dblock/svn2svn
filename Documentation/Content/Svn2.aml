@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="E8FA0061-8309-4C75-B091-F0DB44F1BF0F" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <summary>
+      <para>
+        <newTerm>Svn2</newTerm> is a tool that adds a few useful functions to SVN.
+      </para>
+    </summary>
+    <section address="cmdline">
+      <title>Command Line Usage</title>
+      <content>
+        <para>
+          <code lang="cmd">
+<![CDATA[
+Svn2: 
+syntax: Svn2 [command] ...
+ commands:
+  sync: delete (recycle bin) all unversioned files
+  cleanup: svn cleanup
+  revert: svn revert
+  status: svn status]]>
+          </code>
+        </para>
+      </content>
+    </section>
+  </developerConceptualDocument>
+</topic>

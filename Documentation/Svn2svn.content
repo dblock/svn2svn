@@ -2,6 +2,8 @@
 <Topics defaultTopic="22B7E5BC-9656-4D34-8F19-E62008690626">
   <Topic id="22B7E5BC-9656-4D34-8F19-E62008690626" visible="True" title="Svn2Svn">
     <Topic id="02C041E1-B9C6-470A-B2E9-B306899679E2" visible="True" title="Using Svn2Svn" />
+    <Topic id="A1EBCAB6-9A72-404E-B8F9-5E535FC7B086" visible="True" title="Using Fs2Svn" />
+    <Topic id="E8FA0061-8309-4C75-B091-F0DB44F1BF0F" visible="True" title="Using Svn2" />
     <Topic id="266F1A5E-C13B-48E2-8194-3B4D9D8088F1" visible="True" title="Contributing &amp; Help" />
     <Topic id="BFA6E2D5-C5F2-4346-B967-E3D1B066FC5E" visible="True" title="License" />
   </Topic>

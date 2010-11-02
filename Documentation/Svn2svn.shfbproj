@@ -37,6 +37,10 @@
     <DocumentationSources>
       <DocumentationSource sourceFile="..\Source\Svn2Svn\bin\$(Configuration)\Svn2Svn.exe" xmlns="" />
       <DocumentationSource sourceFile="..\Source\Svn2Svn\bin\$(Configuration)\Svn2Svn.xml" xmlns="" />
+      <DocumentationSource sourceFile="..\Source\Fs2Svn\bin\$(Configuration)\Fs2Svn.exe" xmlns="" />
+      <DocumentationSource sourceFile="..\Source\Fs2Svn\bin\$(Configuration)\Fs2Svn.xml" xmlns="" />
+      <DocumentationSource sourceFile="..\Source\Svn2\bin\$(Configuration)\Svn2.exe" xmlns="" />
+      <DocumentationSource sourceFile="..\Source\Svn2\bin\$(Configuration)\Svn2.xml" xmlns="" />
     </DocumentationSources>
     <KeepLogFile>False</KeepLogFile>
     <CopyrightText>$(Copyright)</CopyrightText>
@@ -54,7 +58,9 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="Content\Main.aml" />
-    <None Include="Content\Using.aml" />
+    <None Include="Content\Svn2svn.aml" />
+    <None Include="Content\Fs2svn.aml" />
+    <None Include="Content\Svn2.aml" />
     <None Include="Content\DevContribute.aml" />
     <None Include="Content\License.aml" />
   </ItemGroup>
