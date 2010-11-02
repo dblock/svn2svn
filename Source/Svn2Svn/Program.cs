@@ -18,7 +18,7 @@ namespace Svn2Svn
         public string Destination = Directory.GetCurrentDirectory();
         [Argument(ArgumentType.AtMostOnce, ShortName = "r", LongName = "revision", HelpText = "Copy from revision.")]
         public string revision;
-        [Argument(ArgumentType.AtMostOnce, DefaultValue = false, ShortName = "p", LongName = "prompt", HelpText = "Describe the change and prompt before commiting.")]
+        [Argument(ArgumentType.AtMostOnce, DefaultValue = false, ShortName = "p", LongName = "prompt", HelpText = "Describe the change and prompt before committing.")]
         public bool prompt = false;
         [Argument(ArgumentType.AtMostOnce, DefaultValue = false, ShortName = "i", LongName = "incremental", HelpText = "Starts the replay action from last synced revision.")]
         public bool incremental = false;
