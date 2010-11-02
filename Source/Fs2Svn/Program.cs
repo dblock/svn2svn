@@ -12,7 +12,7 @@ namespace Svn2Svn
     {
         [Argument(ArgumentType.AtMostOnce, DefaultValue = false, ShortName = "x", LongName = "simulationOnly", HelpText = "Simulation mode, don't commit anything.")]
         public bool simulationOnly = false;
-        [Argument(ArgumentType.Required, ShortName = "s", LongName = "source", HelpText = "Source SVN path.")]
+        [Argument(ArgumentType.Required, ShortName = "s", LongName = "source", HelpText = "Source non-SVN path.")]
         public string Source;
         [Argument(ArgumentType.AtMostOnce, ShortName = "d", LongName = "destination", HelpText = "Target SVN path, default to current.")]
         public string Destination = Directory.GetCurrentDirectory();
