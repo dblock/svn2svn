@@ -11,26 +11,42 @@ namespace Svn2Svn
     public class Svn2SvnCommandLineArguments
     {
         [Argument(ArgumentType.AtMostOnce, DefaultValue = false, ShortName = "x", LongName = "simulationOnly", HelpText = "Simulation mode, don't commit anything.")]
-        public bool simulationOnly = false;
+        public bool SimulationOnly = false;
         [Argument(ArgumentType.Required, ShortName = "s", LongName = "source", HelpText = "Source SVN path.")]
         public string Source;
-        [Argument(ArgumentType.AtMostOnce, ShortName = "d", LongName = "destination", HelpText = "Target SVN path, default to current.")]
+        [Argument(ArgumentType.AtMostOnce, ShortName = "d", LongName = "destination", HelpText = "Target SVN path, defaults to current.")]
         public string Destination = Directory.GetCurrentDirectory();
-        [Argument(ArgumentType.AtMostOnce, ShortName = "r", LongName = "revision", HelpText = "Copy from revision.")]
-        public string revision;
+        [Argument(ArgumentType.AtMostOnce, ShortName = "r", LongName = "revision", HelpText = "Copy from revision to HEAD or within a start:end revision range.")]
+        public string Revision;
         [Argument(ArgumentType.AtMostOnce, DefaultValue = false, ShortName = "p", LongName = "prompt", HelpText = "Describe the change and prompt before committing.")]
-        public bool prompt = false;
+        public bool Prompt = false;
         [Argument(ArgumentType.AtMostOnce, DefaultValue = false, ShortName = "i", LongName = "incremental", HelpText = "Starts the replay action from last synced revision.")]
-        public bool incremental = false;
+        public bool Incremental = false;
+        [Argument(ArgumentType.AtMostOnce, DefaultValue = false, ShortName = "t", LongName = "stopOnCopy", HelpText = "Stop on copy when fetching the oldest revision.")]
+        public bool StopOnCopy = false;
+        [Argument(ArgumentType.AtMostOnce, ShortName = "o", LongName = "root", HelpText = "Relative root before current branch.")]
+        public string Root;
 
         public SvnRevisionRange RevisionRange
         {
             get
             {
-                if (!string.IsNullOrEmpty(revision))
+                if (!string.IsNullOrEmpty(Revision))
                 {
-                    string[] revisionRange = revision.Split(":".ToCharArray(), 2);
-                    return new SvnRevisionRange(int.Parse(revisionRange[0]), int.Parse(revisionRange[1]));
+                    string[] revisionRange = Revision.Split(":".ToCharArray(), 2);
+                    
+                    if (revisionRange.Length > 2)
+                    {
+                        throw new Exception(string.Format("Invalid revision range '{0}', must be in the format X:Y.", 
+                            Revision));
+                    }
+
+                    SvnRevision start = SvnRevisionParser.Parse(revisionRange[0]);
+                    SvnRevision end = (revisionRange.Length == 2)
+                        ? SvnRevisionParser.Parse(revisionRange[1]) 
+                        : SvnRevisionType.Head;
+
+                    return new SvnRevisionRange(start, end);
                 }
 
                 return null;

@@ -27,7 +27,7 @@ namespace Svn2Svn
         public void Copy()
         {
             long lastSyncRevision = 0;
-            if (_args.incremental)
+            if (_args.Incremental)
             {
                 SvnLogParser logParser = new SvnLogParser(_args.Destination);
                 lastSyncRevision = logParser.GetLastSyncedRevisionFromDestination();
@@ -53,8 +53,14 @@ namespace Svn2Svn
 
             Console.WriteLine("Relative path: {0}", sourceRelativePath);
 
+            if (!string.IsNullOrEmpty(_args.Root))
+            {
+                sourceRelativePath = _args.Root;
+                Console.WriteLine("Substituting relative path: {0}", sourceRelativePath);
+            }
+
             SvnLogArgs logArgs = new SvnLogArgs();
-            logArgs.StrictNodeHistory = true;
+            logArgs.StrictNodeHistory = _args.StopOnCopy;
             logArgs.ThrowOnError = true;
             logArgs.Range = _args.RevisionRange;
 
@@ -69,7 +75,7 @@ namespace Svn2Svn
             {
                 SvnLogEventArgs revision = revisionPair.Value;
 
-                if (_args.incremental && lastSyncRevision != 0 && lastSyncRevision >= revision.Revision )
+                if (_args.Incremental && lastSyncRevision != 0 && lastSyncRevision >= revision.Revision )
                 {
                     Console.WriteLine("Skipping revision {0} ({1})", revision.Revision, revision.Time);
                     continue;
@@ -77,7 +83,7 @@ namespace Svn2Svn
 
                 Console.WriteLine("Revision {0} ({1})", revision.Revision, revision.Time);
 
-                if (_args.simulationOnly)
+                if (_args.SimulationOnly)
                     continue;
 
                 SvnExportArgs exportArgs = new SvnExportArgs();
@@ -103,14 +109,18 @@ namespace Svn2Svn
 
                 List<string> filesAdd = new List<string>();
                 List<string> filesDelete = new List<string>();
+                List<string> filesModify = new List<string>();
 
                 // add files in forward order (add directories first)
                 // delete files in reverse order (delete files first)
                 foreach (SvnChangeItem changeItem in changeItems.Values)
                 {
-                    // the root is being modified, ignore, it's already added/removed
-                    if (changeItem.Path.Length <= sourceRelativePath.Length)
+                    // anything above (outside) of the source path is ignored, we didn't export that
+                    if (! changeItem.Path.StartsWith(sourceRelativePath))
+                    {
+                        Console.WriteLine("Skipping {0}. Did you need to specify /root:<path>?)", changeItem.Path);
                         continue;
+                    }
 
                     string targetSvnPath = changeItem.Path.Remove(0, sourceRelativePath.Length);
                     string targetOSPath = targetSvnPath.Replace("/", @"\");
@@ -125,13 +135,27 @@ namespace Svn2Svn
                         case SvnChangeAction.Delete:
                             filesDelete.Insert(0, targetPath);
                             break;
+                        case SvnChangeAction.Modify:
+                            filesModify.Add(targetPath);
+                            break;
                     }
                 }
                
                 Console.WriteLine("Applying changes @ rev. {0} ...", revision.Revision);
 
+                foreach (string targetPath in filesModify)
+                {
+                    Console.WriteLine(" M {0}", targetPath);
+                }
+
                 foreach (string targetPath in filesAdd)
                 {
+                    if (! File.Exists(targetPath))
+                    {
+                        throw new Exception(string.Format("Added file '{0}' doesn't exist. Did you need to specify /root:<path>?",
+                            targetPath));
+                    }
+
                     Console.WriteLine(" A {0}", targetPath);
                     SvnAddArgs svnAddArgs = new SvnAddArgs();
                     svnAddArgs.ThrowOnError = true;
@@ -160,7 +184,7 @@ namespace Svn2Svn
                 Console.WriteLine(commitArgs.LogMessage);
                 Console.WriteLine("----------------------------------------------------------------------------");
 
-                if (_args.prompt)
+                if (_args.Prompt)
                 {
                     while (true)
                     {

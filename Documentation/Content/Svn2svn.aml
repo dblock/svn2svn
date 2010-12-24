@@ -3,8 +3,9 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <summary>
       <para>
-        <newTerm>Svn2Svn</newTerm> is a tool that replays and applies changes across SVN repositories. It's intended to be a lighter version
-        of <command>svnsync</command> or one that doesn't require to start at revision zero or copying entire repositories from root.
+        <newTerm>Svn2Svn</newTerm> is a tool that replays and applies changes across SVN repositories.
+        It's intended to be a lighter version of <command>svnsync</command> or one that doesn't require
+        to start at revision zero or copying entire repositories from root.
       </para>
     </summary>
     <section address="features">
@@ -17,10 +18,11 @@
             <listItem>no zero-revision requirements, this is a change replay tool</listItem>
             <listItem>supports non-rooted paths (copy a subtree towards another subtree)</listItem>
             <listItem>supports add/delete/modify</listItem>
+            <listItem>follows branches</listItem>
             <listItem>incremental sync</listItem>
-            <listItem>optional revision range</listItem>
+            <listItem>start revision or revision range</listItem>
             <listItem>simulation mode</listItem>
-            <listItem>prompts on commit</listItem>
+            <listItem>prompt before commit</listItem>
           </list>
         </para>
       </content>
@@ -30,14 +32,16 @@
       <content>
         <para>
           <code lang="cmd">
-<![CDATA[
+            <![CDATA[
 Svn2Svn:
 /simulationOnly[+|-]   Simulation mode, don't commit anything. Default value:'-' (short form /x)
 /source:<string>       Source SVN path. (short form /s)
-/destination:<string>  Target SVN path, default to current. (short form /d)
-/revision:<string>     Copy from revision. (short form /r)
-/prompt[+|-]           Describe the change and prompt before commiting. Default value:'-' (short form /p)
+/destination:<string>  Target SVN path, defaults to current. (short form /d)
+/revision:<string>     Copy from revision to HEAD or within a start:end revision range. (short form /r)
+/prompt[+|-]           Describe the change and prompt before committing. Default value:'-' (short form /p)
 /incremental[+|-]      Starts the replay action from last synced revision. Default value:'-' (short form /i)
+/stopOnCopy[+|-]       Stop on copy when fetching the oldest revision. Default value:'-' (short form /t)
+/root:<string>         Relative root before current branch. (short form /o)
 @<file>                Read response file for more options]]>
           </code>
         </para>
@@ -121,6 +125,27 @@ Copied from https://dotnetinstaller.svn.sourceforge.net/svnroot/dotnetinstaller/
 ----------------------------------------------------------------------------
 Commit? [Y/N]
           ]]>
+          </code>
+        </para>
+      </content>
+    </section>
+    <section address="branches">
+      <title>Working with Branches</title>
+      <content>
+        <para>
+          Svn2svn has limited support for svn branches (svn copy). While it is capable of following svn revisions down a branching path
+          (this default behavior can be changed by specifying <command>--stopOnCopy-</command>), it doesn't have enough information to
+          calculate the relative locations of exported files. To replay ancestor changes, specify <command>--root:path</command> that indicates
+          the original file location.
+        </para>
+        <para>
+          For example, source code originated in <literal>http://svn/project/trunk</literal> and was branched into
+          <literal>http://svn/project/branches/1.0</literal> after many revisions. To replay the range of revisions that were made on trunk,
+          an ancestor of the 1.0 branch, specify <command>--root:"/project/trunk"</command>.
+          <code lang="cmd">
+            <![CDATA[
+Svn2Svn.exe /source:c:\project\branches\1.0 /destination:c:\Source\targetproject\trunk -r:1:100 --root:"/project/trunk"
+]]>
           </code>
         </para>
       </content>

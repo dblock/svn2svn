@@ -12,7 +12,7 @@ namespace Svn2
     {
         static void Usage()
         {            
-            Console.WriteLine("syntax: Svn2 [command] ...");
+            Console.WriteLine("syntax: Svn2 [command] [path]");
             Console.WriteLine(" commands:");
             Console.WriteLine("  sync: delete (recycle bin) all unversioned files");
             Console.WriteLine("  cleanup: svn cleanup");
@@ -26,91 +26,91 @@ namespace Svn2
             {
                 Console.WriteLine("Svn2: {0}", Assembly.GetExecutingAssembly().GetName().Version);
 
-                if (args.Length < 2)
+                if (args.Length < 1)
                 {
                     Usage();
                     return -2;
                 }
 
                 string command = args[0];
-                SvnClient client = new SvnClient();
-                for (int i = 1; i < args.Length; i++)
+                if (command == "/?" || command == "-?" || command == "--help")
                 {
-                    if (args[i] == "/?" || args[i] == "-?" || args[i] == "--help")
-                    {
-                        Usage();
-                        return -2;
-                    }
+                    Usage();
+                    return -2;
+                }
 
-                    string path = Path.GetFullPath(args[i]);
+                string path = (args.Length == 2) 
+                    ? Path.GetFullPath(args[1])
+                    : Path.GetFullPath(Environment.CurrentDirectory);
 
-                    switch (command)
-                    {
-                        case "sync":
+                SvnClient client = new SvnClient();
+
+                switch (command)
+                {
+                    case "sync":
+                        {
+                            SvnStatusArgs statusArgs = new SvnStatusArgs();
+                            statusArgs.Depth = SvnDepth.Infinity;
+                            statusArgs.ThrowOnError = true;
+                            client.Status(path, statusArgs, new EventHandler<SvnStatusEventArgs>(delegate(object sender, SvnStatusEventArgs e)
                             {
-                                SvnStatusArgs statusArgs = new SvnStatusArgs();
-                                statusArgs.Depth = SvnDepth.Infinity;
-                                statusArgs.ThrowOnError = true;
-                                client.Status(path, statusArgs, new EventHandler<SvnStatusEventArgs>(delegate(object sender, SvnStatusEventArgs e)
+                                switch (e.LocalContentStatus)
                                 {
-                                    switch (e.LocalContentStatus)
-                                    {
-                                        case SvnStatus.NotVersioned:
-                                            Console.WriteLine(" {0} {1}", StatusToChar(e.LocalContentStatus), e.FullPath);
-                                            if (File.Exists(e.FullPath))
-                                            {
-                                                FileSystem.DeleteFile(e.FullPath, UIOption.OnlyErrorDialogs,
-                                                    RecycleOption.SendToRecycleBin);
-                                            }
-                                            else if (Directory.Exists(e.FullPath))
-                                            {
-                                                FileSystem.DeleteDirectory(e.FullPath, UIOption.OnlyErrorDialogs,
-                                                    RecycleOption.SendToRecycleBin);
-                                            }
-                                            break;
-                                    }
-                                }));
-                            }
-                            break;
-                        case "cleanup":
-                            {
-                                Console.WriteLine("Cleaning up {0}", path);
-                                SvnCleanUpArgs cleanupArgs = new SvnCleanUpArgs();
-                                cleanupArgs.ThrowOnError = true;
-                                cleanupArgs.Notify += new EventHandler<SvnNotifyEventArgs>(delegate(object sender, SvnNotifyEventArgs e)
-                                    {
-                                        Console.WriteLine(" L {0}", e.FullPath);
-                                    });
-                                client.CleanUp(path, cleanupArgs);
-                            }
-                            break;
-                        case "revert":
-                            {
-                                Console.WriteLine("Reverting {0}", path);
-                                SvnRevertArgs revertArgs = new SvnRevertArgs();
-                                revertArgs.Depth = SvnDepth.Infinity;
-                                revertArgs.ThrowOnError = true;
-                                revertArgs.Notify += new EventHandler<SvnNotifyEventArgs>(delegate(object sender, SvnNotifyEventArgs e)
-                                    {
-                                        Console.WriteLine(" R {0}", e.FullPath);
-                                    });
-                                client.Revert(path, revertArgs);
-                            }
-                            break;
-                        case "status":
-                            {
-                                SvnStatusArgs statusArgs = new SvnStatusArgs();
-                                statusArgs.Depth = SvnDepth.Infinity;
-                                statusArgs.ThrowOnError = true;
-                                client.Status(path, statusArgs, new EventHandler<SvnStatusEventArgs>(delegate(object sender, SvnStatusEventArgs e)
-                                    {
+                                    case SvnStatus.NotVersioned:
                                         Console.WriteLine(" {0} {1}", StatusToChar(e.LocalContentStatus), e.FullPath);
-                                    }));
-                            }
-                            break;
-                        default:
-                            throw new Exception(string.Format("Unsupported '{0}' command", command));
-                    }
+                                        if (File.Exists(e.FullPath))
+                                        {
+                                            FileSystem.DeleteFile(e.FullPath, UIOption.OnlyErrorDialogs,
+                                                RecycleOption.SendToRecycleBin);
+                                        }
+                                        else if (Directory.Exists(e.FullPath))
+                                        {
+                                            FileSystem.DeleteDirectory(e.FullPath, UIOption.OnlyErrorDialogs,
+                                                RecycleOption.SendToRecycleBin);
+                                        }
+                                        break;
+                                }
+                            }));
+                        }
+                        break;
+                    case "cleanup":
+                        {
+                            Console.WriteLine("Cleaning up {0}", path);
+                            SvnCleanUpArgs cleanupArgs = new SvnCleanUpArgs();
+                            cleanupArgs.ThrowOnError = true;
+                            cleanupArgs.Notify += new EventHandler<SvnNotifyEventArgs>(delegate(object sender, SvnNotifyEventArgs e)
+                                {
+                                    Console.WriteLine(" L {0}", e.FullPath);
+                                });
+                            client.CleanUp(path, cleanupArgs);
+                        }
+                        break;
+                    case "revert":
+                        {
+                            Console.WriteLine("Reverting {0}", path);
+                            SvnRevertArgs revertArgs = new SvnRevertArgs();
+                            revertArgs.Depth = SvnDepth.Infinity;
+                            revertArgs.ThrowOnError = true;
+                            revertArgs.Notify += new EventHandler<SvnNotifyEventArgs>(delegate(object sender, SvnNotifyEventArgs e)
+                                {
+                                    Console.WriteLine(" R {0}", e.FullPath);
+                                });
+                            client.Revert(path, revertArgs);
+                        }
+                        break;
+                    case "status":
+                        {
+                            SvnStatusArgs statusArgs = new SvnStatusArgs();
+                            statusArgs.Depth = SvnDepth.Infinity;
+                            statusArgs.ThrowOnError = true;
+                            client.Status(path, statusArgs, new EventHandler<SvnStatusEventArgs>(delegate(object sender, SvnStatusEventArgs e)
+                                {
+                                    Console.WriteLine(" {0} {1}", StatusToChar(e.LocalContentStatus), e.FullPath);
+                                }));
+                        }
+                        break;
+                    default:
+                        throw new Exception(string.Format("Unsupported '{0}' command", command));
                 }
 
                 return 0;

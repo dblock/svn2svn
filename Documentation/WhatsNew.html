@@ -25,11 +25,28 @@
     <h3>
         ${Major}.${Minor} (${Date})</h3>
     <ul>
-        <li>Added <code>/incremental</code> (<code>/i</code>) mode to <code>svn2svn</code>;
-            detects all previously synced revisions and starts at the latest revision that has
-            not been synced.</li>
-        <li>Added <code>fs2svn</code> that synchronizes a file system folder to SVN.</li>
-        <li>Added <code>svn2</code> that can recycle unversioned files (sync).</li>
+        <li><b>Features</b>
+            <ul>
+                <li>Added <code>/incremental</code> (<code>/i</code>) mode to svn2svn; detects all previously
+                    synced revisions and starts at the latest revision that has not been synced.</li>
+                <li>Added fs2svn, a tool that synchronizes a file system folder to SVN.</li>
+                <li>Added svn2, a tool that can recycle unversioned files (sync).</li>
+                <li>Added <code>/stopOnCopy[+/-]</code> to svn2svn, default isto follow branch/copy
+                    history.</li>
+                <li>Added <code>/root</code> option to svn2svn, specifies ancestor svn path.</li>
+                <li>Added support for specifying <code>HEAD</code> in svn2svn <code>--revision:start:end</code>.</li>
+                <li>Svn2svn will assume <code>HEAD</code> revision when end revision omitted in <code>
+                    --revision</code>.</li>
+                <li>Modified files are displayed in svn2svn console output before each action with an
+                    M marker.</li>
+            </ul>
+        </li>
+        <li><b>Bugs</b>
+            <ul>
+                <li>Bug: fixed unclear "index out of range" error in svn2svn when specifying an invalid
+                    revision range with <code>-revision</code>.</li>
+            </ul>
+        </li>
     </ul>
     <h3>
         1.1 (11/29/2009)</h3>

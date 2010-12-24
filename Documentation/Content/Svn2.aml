@@ -13,7 +13,7 @@
           <code lang="cmd">
 <![CDATA[
 Svn2: 
-syntax: Svn2 [command] ...
+syntax: Svn2 [command] ([path])
  commands:
   sync: delete (recycle bin) all unversioned files
   cleanup: svn cleanup
